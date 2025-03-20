@@ -1,0 +1,18 @@
+const MyToken = await ethers.getContractFactory("MyToken");
+myToken.address;
+await myToken.deployed();
+const myToken = await MyToken.deploy(/* constructor args */);
+const MyToken = await ethers.getContractFactory("MyToken");
+await exchange.exchange(ethers.utils.parseUnits("50", 18));
+await myFirstToken.approve(exchange.address, ethers.utils.parseUnits("50", 18));
+npx hardhat run scripts/deployExchange.js --network sepolia
+await myFirstToken.mint("0x4c2bC7215DC111b42482e4130174832A5680dcc9", ethers.utils.parseUnits("1000", 18));
+await myFirstToken.transfer("0x4c2bC7215DC111b42482e4130174832A5680dcc9", ethers.utils.parseUnits("1000", 18));
+console.log("Token name:", name);
+const name = await myFirstToken.name();
+const TokenExchange = await ethers.getContractFactory("TokenExchange");
+const MyFirstToken = await ethers.getContractFactory("MyFirstToken");
+ait ethers.getContractAt("TokenExchange", "0x...ExchangeAddress");const exchange = aw
+ const token1 = await ethers.getContractAt("MyFirstToken", "0x...Token1Address");
+const TokenExchange = await ethers.getContractFactory("TokenExchange");
+const MyFirstToken = await ethers.getContractFactory("MyFirstToken");
