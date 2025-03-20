@@ -5,25 +5,23 @@ async function main() {
   const [deployer] = await hre.ethers.getSigners();
   console.log("Deploying with deployer:", await deployer.getAddress());
 
-  // Deploy MyFirstToken (MFT) with 3 arguments
+  // Deploy MyFirstToken with 3 args
   const MyFirstToken = await hre.ethers.getContractFactory("MyFirstToken");
-  // Example: initialSupply=1,000,000, maxSupply=2,000,000
   const firstToken = await MyFirstToken.deploy(
-    1000000,   // initialSupply
-    2000000,   // maxSupply
+    1000000,         // initial supply
+    2000000,         // max supply
     deployer.address // owner
   );
   await firstToken.waitForDeployment();
   const firstTokenAddress = await firstToken.getAddress();
   console.log("MyFirstToken deployed at:", firstTokenAddress);
 
-  // Deploy MySecondToken (MST) with 3 arguments
+  // Deploy MySecondToken with 3 args
   const MySecondToken = await hre.ethers.getContractFactory("MySecondToken");
-  // Example: initialSupply=500,000, maxSupply=1,000,000
   const secondToken = await MySecondToken.deploy(
-    500000,     // initialSupply
-    1000000,    // maxSupply
-    deployer.address // owner
+    500000,
+    1000000,
+    deployer.address
   );
   await secondToken.waitForDeployment();
   const secondTokenAddress = await secondToken.getAddress();
@@ -31,7 +29,7 @@ async function main() {
 
   // Deploy TokenExchange
   const ExchangeFactory = await hre.ethers.getContractFactory("TokenExchange");
-  const ratio = hre.ethers.parseUnits("2", 18); // 2.0 ratio
+  const ratio = hre.ethers.parseUnits("2", 18);
   const exchange = await ExchangeFactory.deploy(
     firstTokenAddress,
     secondTokenAddress,

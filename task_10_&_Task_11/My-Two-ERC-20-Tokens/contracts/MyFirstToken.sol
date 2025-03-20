@@ -6,12 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Capped.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-/*
- * 1) ERC20 with max supply (ERC20Capped).
- * 2) EIP-2612 permit (ERC20Permit).
- * 3) Ownership requires explicit owner in OZ 5.x.
- */
-
+// ERC20 with capped supply and EIP-2612 permit, owned by `initialOwner`.
 contract MyFirstToken is ERC20, ERC20Capped, ERC20Permit, Ownable {
     constructor(
         uint256 initialSupply,
