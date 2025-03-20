@@ -1,43 +1,72 @@
-Task 0
+# Bidirectional Token Exchange
 
-· Install Metamask wallet.
-· Change the network to Sepolia testnet.
-· Find Google Sepolia Faucet
-· Collect some coins (you need to do it over several days)
-· Install some (free) VPN setup (proton has some free options)
-
-
-Installing
-
-· If you want, install Linux VM
-· Install IPFS node – such that you can interact with IPFS commands
-· Install NodeJS, and NPM
-· Install hardhat
-· Test by generating a demo project with npm hardhat init
-
-
-Task 1
-
-· (Unfortunately) Remix does not work with TOR. So we might need to use VPN.
-· Using Remix IDE online, create a simplest “hello world” smart contract.
-· Deploy it onto the internal node
-· Interact with the functions from your smart contract.
-· Observe the PURE and VIEW functions. Do they need to use gas?
-· Observe the functions that modify the state. Is the gas used? How is it consumed?
+This project consists of:
+- **MyFirstToken** (MFT) and **MySecondToken** (MST) – both ERC20 tokens with capped supply and permit functionality.
+- **TokenExchange** – a contract that allows swapping MFT ↔ MST at an owner-controlled ratio, plus deposit functions.
 
 
 
+## Quick Start
 
-Task 2
+1. **Install Dependencies**  
 
-· Task should be carried out on your operating system of choice, however, networking configurations, 
-local webserver startup and so on have been tested on Linux and Mac but not on Windows, so you may experience barriers on Windows.
+- npm install
+ 
+- npx hardhat node
+ 
+- Compile Contracts
 
-· Repeat your contract experimentation from Task 1 but this time locally on your own computer, using hardhat framework
+- npx hardhat compile
 
-· Install hardhat (requires NPM, NODEJS)
-· Install Ganache network
+This creates artifacts in artifacts/ and cache/.
 
-· Install IPFS node, and play with it – store a file, and access it via a web browser gateway, 
+4. Deploy Contracts
 
-See: https://ipfs.github.io/public-gateway-checker/ 
+	- npx hardhat run scripts/deployAll.js --network sepolia
+	- The script logs deployed addresses for MFT, MST, and TokenExchange.
+
+5.	Update Front-End In front-end/app.js, set:
+
+	- const EXCHANGE_ADDRESS = "0xYourExchangeAddress";
+	- const TOKEN1_ADDRESS   = "0xYourMFTAddress";
+	- const TOKEN2_ADDRESS   = "0xYourMSTAddress";
+
+These should match the console output from the deployment script.
+
+6.	Launch Front-End
+
+	- cd front-end
+	- npx http-server .
+	- Open http://127.0.0.1:8080 in your browser.
+
+7.	Import MFT and MST in MetaMask
+	- Open MetaMask → “Import tokens.”
+	- Paste each token address (MFT, MST) to see your balances.
+
+Using the DApp
+
+1.	Connect Wallet
+	-	Click “Connect Wallet”. Approve in MetaMask.
+	-	Ensure you are on Sepolia (or whichever network used for deployment).
+2.	Approve a Token
+	-	Under “Approve,” choose MFT or MST.
+	-	Enter the amount you want the contract to spend (e.g., 100).
+	-	Click “Approve.” Confirm in MetaMask.
+3.	Deposit (Owner Only)
+	-	If you want the exchange to hold tokens for swaps:
+	-	Approve first, then under “Deposit,” set an amount for MFT or MST.
+	-	Click “Deposit MFT” or “Deposit MST.” Confirm in MetaMask.
+	-	This increases the “Exchange MFT” or “Exchange MST” balance in the UI.
+4.	Swap
+	-	Select MFT→MST or MST→MFT in the dropdown.
+	-	Enter the token amount to swap (cannot exceed your approval & actual balance).
+	-	Click “Swap.” Confirm in MetaMask.
+	-	Your personal balance updates if the contract has enough tokens for payout.
+5.	Update Ratio (Owner Only)
+	-	Enter a scaled integer (e.g., 2000000000000000000 for 2.0).
+	-	Click “Update.” Confirm in MetaMask.
+	-	Future swaps use the new ratio.
+
+Done!
+
+You’ve successfully deployed tokens, set up an exchange, and tested approvals, deposits, and swaps.
